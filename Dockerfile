@@ -1,23 +1,23 @@
-# Usa una imagen base con TensorFlow preinstalado (reduce el build de 10 min a <1 min)
+# Usa TensorFlow preinstalado (rápido y compatible)
 FROM tensorflow/tensorflow:2.20.0
 
-# Evitar buffering de logs en tiempo real
+# Evita el buffering para ver logs en tiempo real
 ENV PYTHONUNBUFFERED=1
 
-# Crear y usar directorio de trabajo
+# Crea y usa el directorio de trabajo
 WORKDIR /app
 
-# Copiar dependencias primero (para aprovechar la cache de Docker)
+# Copia dependencias primero (para aprovechar la cache)
 COPY requirements.txt .
 
-# Instalar dependencias adicionales
+# Instala dependencias
 RUN pip install --no-cache-dir --ignore-installed -r requirements.txt
 
-# Copiar el resto del proyecto
+# Copia el resto del proyecto
 COPY . .
 
-# Exponer el puerto Flask
-EXPOSE 5000
+# Render asigna automáticamente un puerto mediante la variable PORT
+EXPOSE 10000
 
-# Comando para ejecutar Flask
+# Comando para ejecutar Flask usando el puerto dinámico
 CMD ["python", "app.py"]
