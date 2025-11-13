@@ -246,10 +246,16 @@ def not_found(error):
 def internal_error(error):
     return jsonify({'error': 'Error interno del servidor'}), 500
 
+
 if __name__ == '__main__':
+    import os
+
+    # Render asigna el puerto en la variable de entorno PORT
+    port = int(os.environ.get("PORT", 10000))
+
     print("\n" + "="*50)
     print("Servidor Flask iniciado")
-    print("API disponible en: http://localhost:5000")
+    print(f"API disponible en: http://localhost:{port}")
     print("="*50 + "\n")
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=port)
